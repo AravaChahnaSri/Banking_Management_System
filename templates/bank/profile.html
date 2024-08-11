@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #0288d1;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+        h2 {
+            color: #0288d1;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .card {
+            background: #ffffff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card p {
+            font-size: 18px;
+        }
+        .form-container {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        a {
+            color: #0288d1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .link-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Account Profile</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <p>Account Number: {{ account.account_number }}</p>
+            <p>Balance: ₹{{ account.balance }}</p>
+        </div>
+
+        <div class="form-container">
+            <form method="post" action="">
+                {% csrf_token %}
+                <h3>Update Email</h3>
+                {{ email_form.as_p }}
+                <button type="submit">Update Email</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <form method="post" action="">
+                {% csrf_token %}
+                {% if account.upi_id == 0 %}
+                <p><a href="{% url 'set_upi_id' %}">Set UPI ID</a></p>
+                {% else %}
+                <p><a href="{% url 'set_upi_id' %}">Update UPI ID</a></p>
+                {% endif %}
+            </form>
+        </div>
+
+        <div class="link-container">
+            <p><a href="{% url 'account_summary' %}">Back to Account Summary</a></p>
+        </div>
+    </div>
+</body>
+</html>
